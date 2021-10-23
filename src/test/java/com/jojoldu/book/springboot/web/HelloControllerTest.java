@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)    // @RunWith은 스프링부트 테스트와 JUnit사이에 연결자 역할을 한다.
-@WebMvcTest(controllers = HelloController.class)
+@WebMvcTest(controllers = HelloController.class)    // Service, Component, Repository테스트에는 사용할수 없음. Web에 집중할 수 있는 어노테이션. 여기서는 컨트롤러만 사용하기 때문에 사용가능.
 public class HelloControllerTest {
 
     @Autowired  // 스프링이 관리 하는 빈(Bean)을 주입받는다.
