@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Posts extends BaseTimeEntity { // BaseTimeEntity는 등록 및 수정할때의 시간 데이터를 자동으로 저장해주는 entity클래스
 
     @Id // pk, Entity의 PK는 Long타입을 권장.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // id값은 자동으로 만들어지나?
     private Long id;
 
     @Column(length = 500, nullable = false)
