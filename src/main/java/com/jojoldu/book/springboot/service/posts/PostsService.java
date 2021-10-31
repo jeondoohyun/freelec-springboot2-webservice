@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class PostsService {
-    private final PostsRepository postsRepository;
+    private final PostsRepository postsRepository;  // Service에서 Repository를 이용한다. Service에서 비즈니스 로직이 동작 되진 않는다. Service에서 다른 클래스의 비즈니스로직을 가져다 쓰는것.
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();
+        return postsRepository.save(requestDto.toEntity()).getId();     // .save()는 Repository에 자동으로 만들어주는 메소드(sql), PostsRepository(인터페이스)에 extends JpaRepository<Posts, Long>를 상속받았기 때문에 save()메소드를 사용할수 있다.
     }
 
     @Transactional
