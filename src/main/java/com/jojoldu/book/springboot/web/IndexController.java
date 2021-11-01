@@ -14,7 +14,7 @@ public class IndexController {
         // 뒤의 확장자(.mustache)가 자동으로 지정된다. 즉 src/main/resources/templates/index.mustache로 반환되어 View Resolver가 처리 한다.
     }
 
-    @GetMapping("posts/save")
+    @GetMapping("/posts/save")
     public String postsSave() {
         return "posts-save";    // https .. /posts/save를 호출 하면 posts-save.mustache를 호출 한다.(반환한다.)
     }
