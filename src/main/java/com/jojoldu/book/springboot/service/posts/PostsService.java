@@ -2,12 +2,16 @@ package com.jojoldu.book.springboot.service.posts;
 
 import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.domain.posts.PostsRepository;
+import com.jojoldu.book.springboot.web.dto.PostsListResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 // @RequiredArgsConstructor 롬복의 생성자 자동 생성.롬복의 장점 : 클래스의 의존성 관계가 변경될 때 마다 생성자 코드를 계속해서 수정하는 번거로움을 해결해준다.
 // 스프링에선 Bean을 주입받는 방식은 3가지.(1. @Autowired, 2.setter, 3.생성자). 권장 하는 방식은 생성자 방식이다. @RequiredArgsConstructor가 빈을 주입 받는다.
@@ -34,5 +38,12 @@ public class PostsService {     // Service에서는 트랜잭션, 도메인간 �
     public PostsResponseDto findById (Long id) {
         Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         return new PostsResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)     // readOnly = true 설정을 하면 조회기능만 남겨두어 조회 속도가 개선. 등록, 수정, 삭제 기능이 없는 서비스 부분에서 사용하는것을 추천.
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)     // PostsListResponseDto::new  와  posts -> new PostsListResponseDto(posts) 는 같다. 람다식에서 파라미터를 두번쓰는게 귀찮을때 사용 할수 있다. 인스턴스::메소드명(또는new)
+                .collect(Collectors.toList());
     }
 }
