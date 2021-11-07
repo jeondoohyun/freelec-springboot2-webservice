@@ -34,6 +34,13 @@ public class IndexController {
         return "index";
     }
 
+//    @GetMapping("/")
+//    public String index2(Model model) {  // 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할수 있다. postsService.findAllDesc()로 가져온 결과를 posts로 index.mustache에 전달.
+//        // model은 HashMap형태를 갖고 있으므로 key값과 value값처럼 사용할 수 있다. addAttribute는 Map의 put과 같은 기능이여서 속성과 그것에 대한 값을 주어 전달할 뷰 데이터를 put 한다.
+//        model.addAttribute("posts", postsService.findAllDesc());
+//        return "index2";
+//    }
+
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);

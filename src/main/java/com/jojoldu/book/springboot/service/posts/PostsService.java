@@ -24,6 +24,7 @@ public class PostsService {     // Service에서는 트랜잭션, 도메인간 �
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();     // .save()는 Repository에 자동으로 만들어주는 메소드(sql), PostsRepository(인터페이스)에 extends JpaRepository<Posts, Long>를 상속받았기 때문에 save()메소드를 사용할수 있다.
         // .getId()는 Posts에 내가 만든 필드 값들을 롬복이 자동으로 getter들을 생성해준 메소드 이다.
+        // 서비스에서 만든 save()메소드를 컨트롤러가 사용하도록 컨트롤러에 코드를 추가 해줘야 한다.
     }
 
     @Transactional
@@ -45,5 +46,12 @@ public class PostsService {     // Service에서는 트랜잭션, 도메인간 �
         return postsRepository.findAllDesc().stream()
                 .map(PostsListResponseDto::new)     // PostsListResponseDto::new  와  posts -> new PostsListResponseDto(posts) 는 같다. 람다식에서 파라미터를 두번쓰는게 귀찮을때 사용 할수 있다. 인스턴스::메소드명(또는new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete (Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        postsRepository.delete(posts);  // .delete()로 삭제 해도되고 postsRepository.deleteById(id) id를 사용해서 삭제 해도된다.
+        // 존재하는 Posts인지 확인후에(.orElseThrow()) 확인 완료된 entity로 삭제 한다.
     }
 }
