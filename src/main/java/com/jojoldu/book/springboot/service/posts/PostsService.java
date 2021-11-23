@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class PostsService {     // Service에서는 트랜잭션, 도메인간 순서 보장의 역할만 한다. 트랜잭션 : 추가, 삭제, 갱신등의 정보를 가져오는것.
     private final PostsRepository postsRepository;  // Service에서 Repository를 이용한다. Service에서 비즈니스 로직이 동작 되진 않는다. Service에서 다른 클래스의 비즈니스로직을 가져다 쓰는것.
 
-    @Transactional
+    @Transactional  //트랜잭션 : 추가, 삭제, 갱신등의 정보를 가져오는것.
     public Long save(PostsSaveRequestDto requestDto) {
-        return postsRepository.save(requestDto.toEntity()).getId();     // .save()는 Repository에 자동으로 만들어주는 메소드(sql), PostsRepository(인터페이스)에 extends JpaRepository<Posts, Long>를 상속받았기 때문에 save()메소드를 사용할수 있다.
+        return postsRepository.save(requestDto.toEntity()).getId();     // .save()는 Repository에 자동으로 만들어지는 메소드(sql), PostsRepository(인터페이스)에 extends JpaRepository<Posts, Long>를 상속받았기 때문에 save()메소드를 사용할수 있다.
         // .getId()는 Posts에 내가 만든 필드 값들을 롬복이 자동으로 getter들을 생성해준 메소드 이다.
         // 서비스에서 만든 save()메소드를 컨트롤러가 사용하도록 컨트롤러에 코드를 추가 해줘야 한다.
     }
