@@ -1,7 +1,7 @@
 var main = {
     init : function() {
         var _this = this;
-        $('#btn-save').on('click', function() {     // $('#btn-save').on('click', function() {  은 btn-update란 id를 가진 HTML 엘리먼트에 click 이벤트가 발생 할때 save()을 실행.
+        $('#btn-save').on('click', function() {     // $('#btn-save').on('click', function() {  은 btn-save란 id를 가진 HTML 엘리먼트에 click 이벤트가 발생 할때 save()을 실행.
             _this.save();
         });
 
